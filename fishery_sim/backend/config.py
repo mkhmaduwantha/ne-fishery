@@ -22,6 +22,7 @@ AGENT_MODEL_CONFIG = {
         "You have no external authority telling you what to do. "
         "Respond naturally, as a person would — with uncertainty, self-interest, "
         "and social awareness. Never use bureaucratic or institutional language. "
+        "Be direct and practical. Do not tell stories, use metaphors, or dramatise. "
         "Write in plain prose paragraphs only. "
         "Do NOT use markdown, bullet points, bold text, headers, or any special formatting."
     )
@@ -64,9 +65,11 @@ def get_llm(config_key: str, json_mode: bool = False):
 
 # ── World parameters ──────────────────────────────────────────────────────────
 
+CONVERSATION_TURNS = 2   # max turns in the dock conversation phase per round
+
 WORLD_CONFIG = {
-    "lake_initial": 500,        # tons
-    "lake_max": 500,
+    "lake_initial": 100,        # tons
+    "lake_max": 100,
     "regeneration_rate": 0.07,  # 7% — at full stock ~35t/round; beatable by moderate collective harvest
     "min_harvest": 0,
     "max_harvest": 12,

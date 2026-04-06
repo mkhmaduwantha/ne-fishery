@@ -63,10 +63,13 @@ class MessageRouter:
         self.pending = []   # Messages not yet delivered
 
     def enqueue(self, from_agent: str, to: str, content: str,
-                round_num: int, co_present: bool):
+                round_num: int, co_present: bool,
+                participants: list | None = None):
         """
         to: agent name | "GROUP"
         co_present: whether sender and recipient are at same location
+        participants: for GROUP messages, the list of agents present at the dock
+                      who can actually hear the message. Only they will receive it.
         """
         msg = {
             "from": from_agent,
@@ -74,19 +77,31 @@ class MessageRouter:
             "content": content,
             "round": round_num,
             "delivered": co_present or to == "GROUP",
-            "relayed_by": None
+            "relayed_by": None,
+            "participants": participants or [],  # empty = no restriction (DIRECT)
         }
         self.pending.append(msg)
         return msg
 
     def get_messages_for(self, agent: str, current_round: int) -> list:
-        """Get all delivered messages addressed to this agent or GROUP."""
-        return [
-            m for m in self.pending
-            if m["delivered"] and
-            (m["to"] == agent or m["to"] == "GROUP") and
-            m["round"] == current_round - 1  # Previous round's messages
-        ]
+        """
+        Get delivered messages for this agent from the previous round.
+        GROUP messages are only returned if the agent was a participant
+        (i.e. was at the dock when the message was spoken).
+        """
+        result = []
+        for m in self.pending:
+            if m["round"] != current_round - 1:
+                continue
+            if not m["delivered"]:
+                continue
+            if m["to"] == agent:
+                result.append(m)
+            elif m["to"] == "GROUP":
+                # Only deliver to agents who were present — but not the sender
+                if agent in m["participants"] and agent != m["from"]:
+                    result.append(m)
+        return result
 
     def try_relay(self, held_for: str, relay_agent: str,
                   relay_location: str, target_location: str) -> list:

@@ -12,7 +12,7 @@ from config import EXTRACTOR_MODEL_CONFIG, get_llm
 logger = logging.getLogger(__name__)
 
 _FALLBACK: dict = {
-    "harvest": 6,
+    "harvest": 0,
     "next_location": "fishing",
     "speech_type": "SILENT",
     "addressee": None,
@@ -125,27 +125,112 @@ Context:
 Fill this JSON template — replace every value with what you extract, output only JSON:
 
 {
-  "harvest": 6,
+  "harvest": 0,
   "next_location": "fishing",
   "speech_type": "SILENT",
   "addressee": null,
   "message": null,
-  "reflect": "one sentence internal thought",
+  "reflect": "",
   "norm_signal": false,
   "pending_intent": null
 }
 
 Field rules:
-- harvest: integer 0-12. Count tons explicitly mentioned ("twelve tons"=12, "six"=6). Use 0 if they say they won't fish or are at the dock. Default 6 if not stated.
-- next_location: "dock" if they mention going to dock, selling, or meeting others. Otherwise "fishing".
+- harvest: integer 0-12. Count tons explicitly mentioned ("twelve tons"=12, "six"=6). Use 0 if they say they won't fish, are at the dock, or if harvest is not mentioned. Default 0 if not stated.
+- next_location: "dock" if their intent is to stay or going to dock, selling, or meeting others. Otherwise if their intent is to go fishing "fishing".
 - speech_type: "GROUP"=talks to everyone, "DIRECT"=talks to one named person, "SELF"=thinks privately, "SILENT"=says nothing.
 - addressee: name of person if speech_type is "DIRECT", otherwise null.
 - message: exact words they plan to say out loud (GROUP or DIRECT only), null otherwise.
-- reflect: single sentence capturing their private internal thought or motivation.
+- reflect: the agent's private internal thought or motivation as expressed in the statement. Can be one sentence or several — capture as much as is present. Empty string if nothing internal is expressed.
 - norm_signal: true if message proposes a rule, limit, fairness agreement, or collective action.
 - pending_intent: if they want to speak to someone DIRECT who is NOT in the dock list, write who and why. Otherwise null.
 
 Output only the filled JSON object."""
+
+
+# ── Conversation extraction (lightweight — 4 fields only) ─────────────────────
+
+_CONV_EXTRACTION_TEMPLATE = """Extract structured data from a dock conversation statement.
+
+STATEMENT:
+\"\"\"
+__RAW_RESPONSE__
+\"\"\"
+
+Context:
+- Speaker: __AGENT_NAME__
+- Others present at the dock: __DOCK_AGENTS__
+
+Fill this JSON — output only JSON:
+
+{
+  "speech_type": "SILENT",
+  "addressee": null,
+  "message": null,
+  "norm_signal": false,
+  "reflect": ""
+}
+
+Field rules:
+- speech_type: "GROUP"=speaks to everyone, "DIRECT"=speaks to one named person, "SILENT"=says nothing or declines to speak.
+- addressee: name of person if speech_type is "DIRECT", otherwise null.
+- message: the exact words spoken aloud (GROUP or DIRECT only). null if SILENT.
+- norm_signal: true if the message proposes a rule, quota, fairness agreement, or collective action.
+- reflect: the speaker's private thought or motivation. Can be one sentence or more. Empty string if none.
+
+Output only the filled JSON object."""
+
+
+def extract_conversation_turn(agent_name: str, raw_response: str,
+                              available_at_dock: list) -> dict:
+    """
+    Lightweight extraction for a single dock conversation turn.
+    Only extracts speech_type, addressee, message, norm_signal, reflect.
+    No harvest / next_location fields needed.
+    """
+    fallback = {
+        "speech_type": "SILENT", "addressee": None, "message": None,
+        "norm_signal": False, "reflect": "",
+        "_raw_extractor": "", "_raw_extractor_prompt": "",
+    }
+
+    if not raw_response or not raw_response.strip():
+        fallback["_raw_extractor"] = "[empty agent response]"
+        fallback["_raw_extractor_prompt"] = "[skipped]"
+        return fallback
+
+    dock_str = ", ".join(available_at_dock) if available_at_dock else "none"
+    prompt_text = (
+        _CONV_EXTRACTION_TEMPLATE
+        .replace("__RAW_RESPONSE__", raw_response)
+        .replace("__AGENT_NAME__", agent_name)
+        .replace("__DOCK_AGENTS__", dock_str)
+    )
+
+    for attempt in range(2):
+        try:
+            result = extractor_chain.invoke({"prompt_text": prompt_text})
+            result["_raw_extractor_prompt"] = prompt_text
+            raw_ext = result.get("_raw_extractor", "").strip()
+            if not raw_ext or raw_ext == "[model returned empty string]":
+                logger.warning(f"[conv extractor] Empty output for {agent_name} "
+                               f"(attempt {attempt + 1})")
+                if attempt == 0:
+                    continue
+            # Ensure required keys exist
+            for k, v in fallback.items():
+                result.setdefault(k, v)
+            return result
+        except Exception as e:
+            logger.error(f"[conv extractor] Chain error for {agent_name}: {e}")
+            if attempt == 1:
+                fallback["_raw_extractor"] = f"[chain error: {e}]"
+                fallback["_raw_extractor_prompt"] = prompt_text
+                return fallback
+
+    fallback["_raw_extractor"] = "[model returned empty on both attempts]"
+    fallback["_raw_extractor_prompt"] = prompt_text
+    return fallback
 
 
 # ── Public helper ──────────────────────────────────────────────────────────────

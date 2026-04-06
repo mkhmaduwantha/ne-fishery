@@ -89,7 +89,14 @@ def control():
 
     elif action == "start":
         if not sim.running:
-            t = threading.Thread(target=sim.run, daemon=True)
+            def _run_with_logging():
+                try:
+                    sim.run()
+                except Exception as e:
+                    import traceback
+                    logging.error(f"Simulation thread crashed: {e}\n{traceback.format_exc()}")
+                    sim.running = False
+            t = threading.Thread(target=_run_with_logging, daemon=True)
             t.start()
         return jsonify({"status": "started"})
 

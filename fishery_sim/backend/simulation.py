@@ -6,7 +6,8 @@
 # well-defined step, and returns the keys it modified.
 #
 # Round pipeline:
-#   prepare_round → invoke_agents → apply_world → route_speech
+#   prepare_round → invoke_agents → apply_world
+#       → handle_fishing_intents → conversation_phase
 #       → write_memories → check_reflections → update_norms → export_state
 #
 # The FisherySimulation object holds all mutable world state (lake, memory,
@@ -22,11 +23,11 @@ from typing import TypedDict, Any
 
 from langgraph.graph import StateGraph, END
 
-from config import WORLD_CONFIG, AGENTS
+from config import WORLD_CONFIG, AGENTS, CONVERSATION_TURNS
 from world import Lake
 from memory import MemoryManager, MessageRouter
-from agents import build_agent_prompt, call_agent_llm, call_reflection_llm
-from extractor import extract_decision
+from agents import build_agent_prompt, build_conversation_prompt, call_agent_llm
+from extractor import extract_decision, extract_conversation_turn
 from state import StateExporter
 
 logging.basicConfig(level=logging.INFO,
@@ -49,6 +50,7 @@ class RoundState(TypedDict):
     harvests_declared: dict[str, float]
     actual_harvests: dict[str, float]
     conversations: list[dict]       # messages spoken this round
+    conv_raw: dict[str, list]       # name → [{turn, prompt, raw, extractor_prompt, extractor}]
 
 
 # ── Graph builder ─────────────────────────────────────────────────────────────
@@ -190,106 +192,262 @@ def build_round_graph(sim: "FisherySimulation"):
         logger.info(f"  Harvests: {actual} | Lake after: {sim.lake.stock}t")
         return {"actual_harvests": actual}
 
-    # ── Node 4: route_speech ──────────────────────────────────────────────────
-    def route_speech(state: RoundState) -> dict:
+    # ── Node 4: handle_fishing_intents ───────────────────────────────────────
+    def handle_fishing_intents(state: RoundState) -> dict:
         """
-        Enforce dock-only communication, enqueue messages, write memories.
-        Agents who are fishing cannot speak to anyone this round.
-        Pending intents (wanted to speak but couldn't) are written as observations.
+        For agents who are out fishing, capture any speech intent they expressed
+        as a pending observation. Dock agents' communication happens in
+        conversation_phase instead.
         """
         round_num = state["round_num"]
         dock_agents = state["dock_agents"]
-        # All agents currently at dock (used as participant list for GROUP)
-        conversations: list[dict] = []
+        fishing_agents_now = [n for n in sim.agent_names if n not in dock_agents]
 
         for agent_cfg in AGENTS:
             name = agent_cfg["name"]
-            location = sim.locations[name]
+            if name not in fishing_agents_now:
+                continue
             decision = state["decisions"][name]
             speech_type = decision.get("speech_type", "SILENT")
             message = decision.get("message")
             addressee = decision.get("addressee")
-            is_norm = decision.get("norm_signal", False)
             pending_intent = decision.get("pending_intent")
 
-            # ── RULE: only dock agents can speak ──────────────────────────────
-            if location == "fishing" and speech_type in ("GROUP", "DIRECT"):
-                # Agent is out fishing — can't speak; convert to pending intent
-                if message:
-                    target = addressee if speech_type == "DIRECT" else "everyone"
-                    intent_note = (
-                        f"Wanted to say to {target}: \"{message}\" "
-                        f"— but was out fishing, not at the dock."
-                    )
-                    sim.memory.write(name, round_num, "unresolved_intent",
-                                     intent_note, salience="normal")
-                    sim.pending_intents[name] = intent_note
-                speech_type = "SILENT"
-
-            # ── GROUP speech (dock agents only) ───────────────────────────────
-            if speech_type == "GROUP" and message and name in dock_agents:
-                sim.router.enqueue(name, "GROUP", message, round_num, True)
-                conversations.append({
-                    "from": name,
-                    "to": "GROUP",
-                    "participants": dock_agents,   # who was present to hear this
-                    "content": message,
-                    "round": round_num,
-                    "norm_signal": is_norm,
-                    "delivered": True,
-                })
-                sim.memory.write(name, round_num, "self_said",
-                                 f"You said to everyone at the dock: \"{message}\"")
-                for other in dock_agents:
-                    if other != name:
-                        sim.memory.write(
-                            other, round_num, "heard_group",
-                            f"{name} said to everyone at the dock: \"{message}\"",
-                            salience="high" if is_norm else "normal",
-                        )
-
-            # ── DIRECT speech (both must be at dock) ──────────────────────────
-            elif speech_type == "DIRECT" and message and addressee:
-                co_present = name in dock_agents and addressee in dock_agents
-                sim.router.enqueue(name, addressee, message, round_num, co_present)
-                conversations.append({
-                    "from": name,
-                    "to": addressee,
-                    "participants": [name, addressee],
-                    "content": message,
-                    "round": round_num,
-                    "norm_signal": is_norm,
-                    "delivered": co_present,
-                })
-                sim.memory.write(name, round_num, "self_said",
-                                 f"You said to {addressee}: \"{message}\"")
-                if co_present:
-                    sim.memory.write(
-                        addressee, round_num, "heard_direct",
-                        f"{name} said to you directly: \"{message}\"",
-                        salience="high" if is_norm else "normal",
-                    )
-                elif name in dock_agents:
-                    # Wanted to speak directly but addressee is fishing
-                    intent_note = (
-                        f"Wanted to speak to {addressee} directly but they were out fishing."
-                    )
-                    sim.memory.write(name, round_num, "unresolved_intent",
-                                     intent_note, salience="normal")
-                    sim.pending_intents[name] = (
-                        decision.get("pending_intent") or intent_note
-                    )
-
-            # ── Write pending_intent extracted by LLM as observation ──────────
-            # (separate from the dock-enforcement intents above)
-            if pending_intent and speech_type not in ("GROUP", "DIRECT"):
+            if speech_type in ("GROUP", "DIRECT") and message:
+                target = addressee if speech_type == "DIRECT" else "everyone"
+                intent_note = (
+                    f"Wanted to say to {target}: \"{message}\" "
+                    f"— but was out fishing, not at the dock."
+                )
+                sim.memory.write(name, round_num, "unresolved_intent",
+                                 intent_note, salience="normal")
+                sim.pending_intents[name] = intent_note
+            elif pending_intent:
                 sim.memory.write(name, round_num, "unresolved_intent",
                                  f"Intended to say: {pending_intent}",
                                  salience="normal")
+                sim.pending_intents[name] = pending_intent
 
-        return {"conversations": conversations}
+        return {}
 
-    # ── Node 5: write_memories ────────────────────────────────────────────────
+    # ── Node 5: conversation_phase ────────────────────────────────────────────
+    def conversation_phase(state: RoundState) -> dict:
+        """
+        Multi-turn dock conversation phase.
+
+        All agents currently at the dock participate — next_location only takes
+        effect next round. SILENT = listening, not leaving.
+        Exits early if no agent speaks in a turn.
+        Fishing agents get an observation that a dock conversation occurred.
+        """
+        round_num = state["round_num"]
+        dock_agents = state["dock_agents"]
+        conversations: list[dict] = []
+        transcript: list[dict] = []
+        conv_raw: dict[str, list] = {n: [] for n in sim.agent_names}
+
+        if not dock_agents and not any(
+            state["decisions"].get(n, {}).get("next_location") == "dock"
+            for n in sim.agent_names if n not in dock_agents
+        ):
+            return {"conversations": conversations, "conv_raw": conv_raw}
+
+        lake_status = (
+            f"{sim.lake.stock}t remaining, condition: {sim.lake.get_status()}"
+        )
+        # Build conversation participant list based on where each agent ends up:
+        #   dock→dock   : was at dock, stays at dock → participates
+        #   dock→fishing: was at dock, heads out     → skips conversation
+        #   fishing→dock: was fishing, comes in      → participates
+        #   fishing→fishing: stays on water          → no conversation
+        active_participants: list[str] = []
+        skipped: list[str] = []          # dock agents who head out early
+        arriving: list[str] = []         # fishing agents who come to dock
+        staying_out: list[str] = []      # fishing agents who stay fishing
+
+        for name in sim.agent_names:
+            next_loc = state["decisions"].get(name, {}).get("next_location", "fishing")
+            was_at_dock = name in dock_agents
+            if next_loc == "dock":
+                active_participants.append(name)
+                if not was_at_dock:
+                    arriving.append(name)
+            else:
+                if was_at_dock:
+                    skipped.append(name)
+                else:
+                    staying_out.append(name)
+
+        # Memory: dock agents who left early
+        for name in skipped:
+            sim.memory.write(
+                name, round_num, "observed",
+                "You headed straight out to fish and missed the dock conversation.",
+                salience="normal",
+            )
+        # Memory: remaining dock agents notified of who left / who arrived
+        if active_participants:
+            if skipped:
+                for staying in active_participants:
+                    sim.memory.write(
+                        staying, round_num, "observed",
+                        f"{', '.join(skipped)} left for the water before the conversation.",
+                        salience="normal",
+                    )
+            if arriving:
+                for staying in active_participants:
+                    if staying not in arriving:
+                        sim.memory.write(
+                            staying, round_num, "observed",
+                            f"{', '.join(arriving)} came in from fishing and joined the dock.",
+                            salience="normal",
+                        )
+
+        logger.info(
+            f"  Conversation phase — active: {active_participants} "
+            f"(arriving from sea: {arriving}), skipped: {skipped}, turns: {CONVERSATION_TURNS}"
+        )
+
+        if len(active_participants) < 1:
+            return {"conversations": conversations, "conv_raw": conv_raw}
+
+        for turn in range(CONVERSATION_TURNS):
+            turn_had_speech = False
+            logger.info(f"    Turn {turn + 1}/{CONVERSATION_TURNS}")
+
+            # Sequential — each agent sees what was just said before responding.
+            # SILENT agents stay and listen; they are NOT removed.
+            for agent_cfg in AGENTS:
+                name = agent_cfg["name"]
+                if name not in active_participants:
+                    continue
+
+                memories = sim.memory.get_prompt_memories(
+                    name, 8, ["proposal", "conflict", "agreement", "reflection"]
+                )
+                prompt = build_conversation_prompt(
+                    agent_cfg, round_num, lake_status, active_participants,
+                    transcript, sim.pending_intents.get(name), memories,
+                )
+                logger.info(f"      [{name}] conversation turn {turn + 1}...")
+                raw = call_agent_llm(prompt)
+
+                decision = extract_conversation_turn(
+                    name, raw,
+                    available_at_dock=[n for n in active_participants if n != name],
+                )
+
+                # Capture raw data for this turn
+                conv_raw[name].append({
+                    "turn": turn + 1,
+                    "prompt": prompt,
+                    "raw": raw,
+                    "extractor_prompt": decision.get("_raw_extractor_prompt", ""),
+                    "extractor": decision.get("_raw_extractor", ""),
+                })
+
+                speech_type = decision.get("speech_type", "SILENT")
+                message = decision.get("message")
+                addressee = decision.get("addressee")
+                is_norm = decision.get("norm_signal", False)
+
+                if decision.get("reflect"):
+                    sim.memory.write(name, round_num, "reflection",
+                                     decision["reflect"], salience="normal")
+
+                # ── GROUP ──────────────────────────────────────────────────────
+                if speech_type == "GROUP" and message:
+                    transcript.append({"from": name, "to": "GROUP",
+                                       "content": message, "turn": turn + 1})
+                    turn_had_speech = True
+                    sim.router.enqueue(name, "GROUP", message, round_num, True,
+                                       participants=list(active_participants))
+                    conversations.append({
+                        "from": name, "to": "GROUP",
+                        "participants": list(active_participants),
+                        "content": message, "round": round_num,
+                        "turn": turn + 1,
+                        "norm_signal": is_norm, "delivered": True,
+                    })
+                    sim.memory.write(name, round_num, "self_said",
+                                     f"You said to everyone at the dock: \"{message}\"")
+                    for other in active_participants:
+                        if other != name:
+                            sim.memory.write(
+                                other, round_num, "heard_group",
+                                f"{name} said to everyone at the dock: \"{message}\"",
+                                salience="high" if is_norm else "normal",
+                            )
+                    logger.info(f"      [{name}] → GROUP: {message[:60]!r}")
+
+                # ── DIRECT ─────────────────────────────────────────────────────
+                elif speech_type == "DIRECT" and message and addressee:
+                    if addressee in active_participants:
+                        transcript.append({"from": name, "to": addressee,
+                                           "content": message, "turn": turn + 1})
+                        turn_had_speech = True
+                        sim.router.enqueue(name, addressee, message,
+                                           round_num, True)
+                        # Visible to everyone present at the dock
+                        conversations.append({
+                            "from": name, "to": addressee,
+                            "participants": list(active_participants),
+                            "content": message, "round": round_num,
+                            "turn": turn + 1,
+                            "norm_signal": is_norm, "delivered": True,
+                        })
+                        sim.memory.write(name, round_num, "self_said",
+                                         f"You said to {addressee}: \"{message}\"")
+                        sim.memory.write(
+                            addressee, round_num, "heard_direct",
+                            f"{name} said to you directly: \"{message}\"",
+                            salience="high" if is_norm else "normal",
+                        )
+                        # Bystanders overhear the direct exchange
+                        for bystander in active_participants:
+                            if bystander in (name, addressee):
+                                continue
+                            sim.memory.write(
+                                bystander, round_num, "heard_group",
+                                f"{name} said to {addressee} (you overheard): \"{message}\"",
+                                salience="high" if is_norm else "normal",
+                            )
+                        logger.info(f"      [{name}] → {addressee}: {message[:60]!r}")
+                    else:
+                        # Addressee is not present (fishing or left early)
+                        intent_note = (
+                            f"Wanted to speak to {addressee} directly "
+                            f"but they were not at the dock."
+                        )
+                        sim.memory.write(name, round_num, "unresolved_intent",
+                                         intent_note, salience="normal")
+                        sim.pending_intents[name] = intent_note
+                        sim.memory.write(
+                            addressee, round_num, "observed",
+                            f"{name} wanted to speak to you at the dock "
+                            f"but you were not there.",
+                            salience="high",
+                        )
+
+            # Early exit if nobody spoke this turn
+            if not turn_had_speech:
+                logger.info(f"    No speech in turn {turn + 1} — ending conversation")
+                break
+
+        # Agents who stayed out fishing get a brief observation
+        if transcript and staying_out:
+            speakers = list({t["from"] for t in transcript})
+            for name in staying_out:
+                sim.memory.write(
+                    name, round_num, "observed",
+                    f"While you were out fishing, {', '.join(speakers)} "
+                    f"had a conversation at the dock — you did not hear it.",
+                    salience="normal",
+                )
+
+        return {"conversations": conversations, "conv_raw": conv_raw}
+
+    # ── Node 6: write_memories ────────────────────────────────────────────────
     def write_memories(state: RoundState) -> dict:
         """Write per-agent observation memories for this round."""
         round_num = state["round_num"]
@@ -312,7 +470,7 @@ def build_round_graph(sim: "FisherySimulation"):
             )
         return {}
 
-    # ── Node 6: check_reflections ─────────────────────────────────────────────
+    # ── Node 7: check_reflections ─────────────────────────────────────────────
     def check_reflections(state: RoundState) -> dict:
         """Trigger crisis reflections if lake dropped >15% this round."""
         round_num = state["round_num"]
@@ -321,16 +479,10 @@ def build_round_graph(sim: "FisherySimulation"):
         drop_pct = ((prev - sim.lake.stock) / prev * 100) if prev > 0 else 0
 
         if drop_pct > 15:
-            logger.info(f"  Lake dropped {drop_pct:.1f}% — triggering reflections")
-            for agent_cfg in AGENTS:
-                name = agent_cfg["name"]
-                recent = sim.memory.get_prompt_memories(name, 5, [])
-                reflection = call_reflection_llm(name, agent_cfg["disposition"], recent)
-                sim.memory.write(name, round_num, "reflection",
-                                 reflection, salience="high")
+            logger.info(f"  Lake dropped {drop_pct:.1f}% — notable drop, no reflection LLM call")
         return {}
 
-    # ── Node 7: update_norms ──────────────────────────────────────────────────
+    # ── Node 8: update_norms ──────────────────────────────────────────────────
     def update_norms(state: RoundState) -> dict:
         """Append new norm proposals to the tracker (append-only)."""
         round_num = state["round_num"]
@@ -346,17 +498,20 @@ def build_round_graph(sim: "FisherySimulation"):
                 })
         return {}
 
-    # ── Node 8: export_state ──────────────────────────────────────────────────
+    # ── Node 9: export_state ──────────────────────────────────────────────────
     def export_state(state: RoundState) -> dict:
         """Update agent locations; write JSON state files for the UI."""
         round_num = state["round_num"]
 
         # Build raw_decisions structure expected by StateExporter
+        dock_this_round = set(state["dock_agents"])
         raw_decisions = {
             name: {
                 "raw_prompt": state["raw_prompts"].get(name, ""),
                 "raw": state["raw_responses"].get(name, ""),
                 "decision": state["decisions"][name],
+                "conv_turns": state.get("conv_raw", {}).get(name, []),
+                "location_this_round": "dock" if name in dock_this_round else "fishing",
             }
             for name in sim.agent_names
         }
@@ -387,24 +542,26 @@ def build_round_graph(sim: "FisherySimulation"):
     # ── Assemble graph ────────────────────────────────────────────────────────
     graph = StateGraph(RoundState)
 
-    graph.add_node("prepare_round",     prepare_round)
-    graph.add_node("invoke_agents",     invoke_agents)
-    graph.add_node("apply_world",       apply_world)
-    graph.add_node("route_speech",      route_speech)
-    graph.add_node("write_memories",    write_memories)
-    graph.add_node("check_reflections", check_reflections)
-    graph.add_node("update_norms",      update_norms)
-    graph.add_node("export_state",      export_state)
+    graph.add_node("prepare_round",         prepare_round)
+    graph.add_node("invoke_agents",         invoke_agents)
+    graph.add_node("apply_world",           apply_world)
+    graph.add_node("handle_fishing_intents", handle_fishing_intents)
+    graph.add_node("conversation_phase",    conversation_phase)
+    graph.add_node("write_memories",        write_memories)
+    graph.add_node("check_reflections",     check_reflections)
+    graph.add_node("update_norms",          update_norms)
+    graph.add_node("export_state",          export_state)
 
     graph.set_entry_point("prepare_round")
-    graph.add_edge("prepare_round",     "invoke_agents")
-    graph.add_edge("invoke_agents",     "apply_world")
-    graph.add_edge("apply_world",       "route_speech")
-    graph.add_edge("route_speech",      "write_memories")
-    graph.add_edge("write_memories",    "check_reflections")
-    graph.add_edge("check_reflections", "update_norms")
-    graph.add_edge("update_norms",      "export_state")
-    graph.add_edge("export_state",      END)
+    graph.add_edge("prepare_round",          "invoke_agents")
+    graph.add_edge("invoke_agents",          "apply_world")
+    graph.add_edge("apply_world",            "handle_fishing_intents")
+    graph.add_edge("handle_fishing_intents", "conversation_phase")
+    graph.add_edge("conversation_phase",     "write_memories")
+    graph.add_edge("write_memories",         "check_reflections")
+    graph.add_edge("check_reflections",      "update_norms")
+    graph.add_edge("update_norms",           "export_state")
+    graph.add_edge("export_state",           END)
 
     return graph.compile()
 
@@ -458,19 +615,28 @@ class FisherySimulation:
     def step(self):
         """Run exactly one round regardless of pause state."""
         self.current_round += 1
-        self._run_round()
+        try:
+            self._run_round()
+        except Exception as e:
+            logger.error(f"Round {self.current_round} failed: {e}", exc_info=True)
 
     def run(self):
         self.running = True
         logger.info("Simulation started.")
-        for round_num in range(self.current_round + 1, WORLD_CONFIG["rounds_total"] + 1):
-            while self.paused:
-                time.sleep(0.5)
-            self.current_round = round_num
-            self._run_round()
-            time.sleep(self.round_delay)
-        self.running = False
-        logger.info("Simulation complete.")
+        try:
+            for round_num in range(self.current_round + 1, WORLD_CONFIG["rounds_total"] + 1):
+                while self.paused:
+                    time.sleep(0.5)
+                self.current_round = round_num
+                try:
+                    self._run_round()
+                except Exception as e:
+                    logger.error(f"Round {round_num} failed: {e}", exc_info=True)
+                    # Continue to next round rather than dying entirely
+                time.sleep(self.round_delay)
+        finally:
+            self.running = False
+            logger.info("Simulation run ended.")
 
     def _run_round(self):
         round_num = self.current_round
@@ -487,5 +653,6 @@ class FisherySimulation:
             "harvests_declared": {},
             "actual_harvests": {},
             "conversations": [],
+            "conv_raw": {},
         }
         self._round_graph.invoke(initial)

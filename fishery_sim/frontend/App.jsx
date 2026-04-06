@@ -461,6 +461,7 @@ function AgentInspector({ agentName, onClose }) {
       raw: agent.raw_response || "",
       raw_extractor_prompt: agent.raw_extractor_prompt || "",
       raw_extractor: agent.raw_extractor || "",
+      conv_turns: agent.conv_turns || [],
     };
   }).filter(Boolean);
 
@@ -588,6 +589,7 @@ function AgentInspector({ agentName, onClose }) {
                   {/* Round header */}
                   <div className="flex items-center gap-2 px-3 py-2 bg-gray-800 border-b border-gray-700">
                     <span className="text-xs text-gray-400 font-mono font-bold">Round {d.round}</span>
+                    <span className="text-xs text-sky-700 font-mono uppercase ml-1">Fishing phase</span>
                   </div>
 
                   {/* 1 — Prompt sent to agent */}
@@ -633,6 +635,61 @@ function AgentInspector({ agentName, onClose }) {
                     emptyText="(no extractor output)"
                     collapsible={false}
                   />
+
+                  {/* 5 — Conversation turns (dock phase) */}
+                  {d.conv_turns && d.conv_turns.length > 0 && (
+                    <div className="border-t border-gray-700">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-800">
+                        <span className="text-xs text-amber-600 font-mono uppercase tracking-wider">
+                          Dock conversation — {d.conv_turns.length} turn{d.conv_turns.length !== 1 ? "s" : ""}
+                        </span>
+                      </div>
+                      {d.conv_turns.map((t, ti) => (
+                        <div key={ti} className="border-t border-gray-800">
+                          {/* Turn sub-header */}
+                          <div className="px-3 py-1 bg-gray-850" style={{ background: "#111827" }}>
+                            <span className="text-xs text-amber-500 font-mono">Turn {t.turn}</span>
+                          </div>
+                          <RawSection
+                            label="PROMPT → Agent LLM (conv)"
+                            labelColor="text-sky-400"
+                            borderColor="border-sky-900"
+                            bgColor="bg-sky-950"
+                            content={t.prompt}
+                            emptyText="(prompt not recorded)"
+                            collapsible={true}
+                          />
+                          <RawSection
+                            label="RESPONSE ← Agent LLM (conv)"
+                            labelColor="text-violet-400"
+                            borderColor="border-violet-900"
+                            bgColor="bg-violet-950"
+                            content={t.raw}
+                            emptyText="(no response)"
+                            collapsible={false}
+                          />
+                          <RawSection
+                            label="PROMPT → Extractor LLM (conv)"
+                            labelColor="text-orange-400"
+                            borderColor="border-orange-900"
+                            bgColor="bg-orange-950"
+                            content={t.extractor_prompt}
+                            emptyText="(extractor prompt not recorded)"
+                            collapsible={true}
+                          />
+                          <RawSection
+                            label="RESPONSE ← Extractor LLM (conv)"
+                            labelColor="text-amber-400"
+                            borderColor="border-amber-900"
+                            bgColor="bg-amber-950"
+                            content={t.extractor}
+                            emptyText="(no extractor output)"
+                            collapsible={false}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
