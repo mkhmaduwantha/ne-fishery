@@ -6,6 +6,7 @@ from pathlib import Path
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from simulation import FisherySimulation
+from config import WORLD_CONFIG
 
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
@@ -38,7 +39,7 @@ def get_state():
             "round": 0,
             "total_rounds": 30,
             "agents": [],
-            "lake": {"current": 100, "max": 100, "history": [100], "status": "healthy"},
+            "lake": {"current": WORLD_CONFIG["lake_initial"], "max": WORLD_CONFIG["lake_max"], "history": [WORLD_CONFIG["lake_initial"]], "status": "healthy"},
             "conversations": [],
             "norm_tracker": []
         })

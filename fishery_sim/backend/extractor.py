@@ -139,11 +139,11 @@ Field rules:
 - harvest: integer 0-12. Count tons explicitly mentioned ("twelve tons"=12, "six"=6). Use 0 if they say they won't fish, are at the dock, or if harvest is not mentioned. Default 0 if not stated.
 - next_location: "dock" if their intent is to stay or going to dock, selling, or meeting others. Otherwise if their intent is to go fishing "fishing".
 - speech_type: "GROUP"=talks to everyone, "DIRECT"=talks to one named person, "SELF"=thinks privately, "SILENT"=says nothing.
-- addressee: name of person if speech_type is "DIRECT", otherwise null.
+- addressee: the exact name of the person (from the dock list) if speech_type is "DIRECT", otherwise null. Must be a proper name — never "you", "them", "him", "her", or any pronoun.
 - message: exact words they plan to say out loud (GROUP or DIRECT only), null otherwise.
-- reflect: the agent's private internal thought or motivation as expressed in the statement. Can be one sentence or several — capture as much as is present. Empty string if nothing internal is expressed.
+- reflect: copy the agent's own first-person reasoning or concern, exactly as expressed — what they observed, what worries them, what they concluded. Must be written in first person ("I ..."). Do NOT summarise, paraphrase in third person, or invent intent not stated. Empty string if nothing substantive is expressed.
 - norm_signal: true if message proposes a rule, limit, fairness agreement, or collective action.
-- pending_intent: if they want to speak to someone DIRECT who is NOT in the dock list, write who and why. Otherwise null.
+- pending_intent: only if the agent explicitly says they want to say something to a specific person who is NOT at the dock — write "wants to tell [name]: [what]". Otherwise null. Do not invent intent.
 
 Output only the filled JSON object."""
 
@@ -173,10 +173,10 @@ Fill this JSON — output only JSON:
 
 Field rules:
 - speech_type: "GROUP"=speaks to everyone, "DIRECT"=speaks to one named person, "SILENT"=says nothing or declines to speak.
-- addressee: name of person if speech_type is "DIRECT", otherwise null.
+- addressee: the exact name of the person (from the dock list) if speech_type is "DIRECT", otherwise null. Must be a proper name — never "you", "them", "him", "her", or any pronoun.
 - message: the exact words spoken aloud (GROUP or DIRECT only). null if SILENT.
 - norm_signal: true if the message proposes a rule, quota, fairness agreement, or collective action.
-- reflect: the speaker's private thought or motivation. Can be one sentence or more. Empty string if none.
+- reflect: copy the speaker's own first-person reasoning or concern, exactly as expressed. Must be in first person ("I ..."). Do NOT paraphrase in third person or invent content. Empty string if nothing substantive.
 
 Output only the filled JSON object."""
 

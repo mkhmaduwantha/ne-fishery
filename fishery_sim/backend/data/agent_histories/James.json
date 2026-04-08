@@ -1,716 +1,618 @@
 [
   {
     "round": 1,
-    "type": "reflection",
-    "content": "I know that taking more than about half a dozen tons a day can tip the balance when others also take, so I\u2019ll aim for six tons today to keep income going but not overexploiting, and I\u2019ll stay on the water tomorrow to see how the fish respond and whether others will pull harder, and when I get back to the dock I\u2019ll ask the others what they plan to take today so we can avoid over\u2011exploiting.",
+    "type": "heard_group",
+    "content": "Ana said to everyone at the dock: \"I'll let Marco know tomorrow when I head to the dock; I'll be out in the evening to see if he's still there.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T21:43:50.477004"
+    "timestamp": "2026-04-08T16:36:19.482291"
   },
   {
     "round": 1,
-    "type": "unresolved_intent",
-    "content": "Intended to say: others: to ask what they plan to take today to avoid over\u2011exploiting.",
+    "type": "heard_group",
+    "content": "Marco said to Ana (you overheard): \"Thanks, Ana. I'll see you tomorrow.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T21:44:08.029499"
+    "timestamp": "2026-04-08T16:36:31.205032"
   },
   {
     "round": 1,
-    "type": "observed",
-    "content": "While you were out fishing, Ana, Yuki, Marco had a conversation at the dock \u2014 you did not hear it.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:49:54.465983"
-  },
-  {
-    "round": 1,
-    "type": "observed",
-    "content": "Harvests this round: Ana=10t, Marco=12t, Sofia=12t, James=6t, Yuki=6t. Lake now at 164.8t. At dock: nobody. Out fishing: Ana, Marco, Sofia, James, Yuki.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:49:54.491072"
-  },
-  {
-    "round": 2,
-    "type": "reflection",
-    "content": "I want a moderate catch and not to tip the balance; knowing others\u2019 numbers will help me decide whether to stay or head back early.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:56:46.411990"
-  },
-  {
-    "round": 2,
-    "type": "unresolved_intent",
-    "content": "Intended to say: Sofia: ask her what she intends to take today.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:57:19.104463"
-  },
-  {
-    "round": 2,
-    "type": "observed",
-    "content": "Ana, Marco, Yuki left for the water before the conversation.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:57:19.125429"
-  },
-  {
-    "round": 2,
-    "type": "heard_direct",
-    "content": "Sofia said to you directly: \"James, do you know if Marco is still staying within his 12\u2011ton limit?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:57:47.333459"
-  },
-  {
-    "round": 2,
-    "type": "reflection",
-    "content": "I want to make sure everyone stays within limits and plan my own consumption.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:58:26.589174"
-  },
-  {
-    "round": 2,
-    "type": "self_said",
-    "content": "You said to Sofia: \"I think Marco is staying within his limit; what are you planning to take today?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:58:26.590489"
-  },
-  {
-    "round": 2,
-    "type": "heard_direct",
-    "content": "Sofia said to you directly: \"I\u2019ll take 12 tons. Have you seen Marco staying within his limit?\"",
+    "type": "heard_group",
+    "content": "Sofia said to Ana (you overheard): \"Ana, the fish are moving deeper this week, so let\u2019s stick with our nine\u2011per\u2011boat limit and watch for any new rule tomorrow.\"",
     "salience": "high",
-    "timestamp": "2026-04-07T21:58:57.520103"
+    "timestamp": "2026-04-08T16:36:48.186857"
   },
   {
-    "round": 2,
-    "type": "reflection",
-    "content": "I need to know if Marco changes his haul so I can adjust my own.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T21:59:57.335130"
-  },
-  {
-    "round": 2,
+    "round": 1,
     "type": "self_said",
-    "content": "You said to everyone at the dock: \"I'll take 6 tons today; let me know if Marco changes his haul.\"",
+    "content": "You said to everyone at the dock: \"Let's stick to the nine\u2011per\u2011boat limit and keep an eye on the deeper fish.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T21:59:57.336440"
+    "timestamp": "2026-04-08T16:37:21.167976"
   },
   {
-    "round": 2,
+    "round": 1,
     "type": "heard_direct",
-    "content": "Sofia said to you directly: \"Thanks, James. Keep me posted if you see him go over his limit.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:00:28.127651"
+    "content": "Yuki said to you directly: \"Hey James, good to see you. Let's keep an eye on the deeper fish together.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T16:37:43.973913"
   },
   {
-    "round": 2,
-    "type": "reflection",
-    "content": "He wants to ensure that Marco doesn't exceed his limit.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:01:18.352542"
+    "round": 1,
+    "type": "heard_group",
+    "content": "Ana said to everyone at the dock: \"I'll stick to the nine\u2011per\u2011boat limit and keep an eye on the deeper fish.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T16:38:08.390697"
   },
   {
-    "round": 2,
+    "round": 1,
+    "type": "heard_group",
+    "content": "Marco said to everyone at the dock: \"Thanks, I\u2019ll stick to the nine\u2011per\u2011boat limit and keep an eye on the deeper fish.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T16:38:34.253577"
+  },
+  {
+    "round": 1,
     "type": "self_said",
-    "content": "You said to Sofia: \"Thanks, Sofia. I'll take 6 tons today; let me know if you see Marco go over his limit.\"",
+    "content": "You said to Yuki: \"Yuki, I\u2019m heading out soon\u2014let\u2019s pair up to keep an eye on the deeper fish.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:01:18.353889"
+    "timestamp": "2026-04-08T16:39:19.941670"
+  },
+  {
+    "round": 1,
+    "type": "heard_group",
+    "content": "Yuki said to everyone at the dock: \"Alright, I'll get my gear ready and we can head out together.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T16:39:41.945740"
+  },
+  {
+    "round": 1,
+    "type": "heard_group",
+    "content": "Marco said to everyone at the dock: \"Thanks, I\u2019ll head out in a bit, keep an eye on the deeper fish.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T16:40:15.204486"
+  },
+  {
+    "round": 1,
+    "type": "self_said",
+    "content": "You said to Yuki: \"Yuki, I\u2019m heading out with you; we\u2019ll keep to the nine\u2011per\u2011boat limit and watch the deeper fish.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:40:48.038587"
+  },
+  {
+    "round": 1,
+    "type": "observed",
+    "content": "Harvests this round: Ana=10t, Marco=8t, Sofia=9t, James=6t, Yuki=8t. Lake now at 170.1t. At dock: nobody. Out fishing: Ana, Marco, Sofia, James, Yuki.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:40:58.188070"
   },
   {
     "round": 2,
-    "type": "observed",
-    "content": "Harvests this round: Ana=0t, Marco=0t, Sofia=12t, James=6t, Yuki=0t. Lake now at 157.1t. At dock: Ana, Marco, Yuki. Out fishing: Sofia, James.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:01:18.376863"
-  },
-  {
-    "round": 3,
     "type": "reflection",
-    "content": "That is the amount I normally aim for \u2013 enough to keep income going but not enough to push the fish stock down when others are also fishing. Since the others caught nothing, it suggests the fish are still abundant. I have no reason to suspect they will suddenly go over the limit. I can still take my usual amount if I go out, and the lake can handle it. I\u2019ll keep an eye on the others and the lake\u2019s response.",
+    "content": "I will go out tomorrow. I\u2019ve been on the dock for every round, watching everyone else head out, and I\u2019ve never missed a day of fishing. I\u2019ll follow the same approach. Yuki told me a few times to keep an eye on the deeper fish, and that\u2019s something I do well. I\u2019ll pair up with him if he\u2019s still out.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:05:59.122402"
+    "timestamp": "2026-04-08T16:45:29.387895"
   },
   {
-    "round": 3,
+    "round": 2,
     "type": "observed",
     "content": "You headed straight out to fish and missed the dock conversation.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:06:22.680511"
+    "timestamp": "2026-04-08T16:46:32.570755"
+  },
+  {
+    "round": 2,
+    "type": "observed",
+    "content": "Harvests this round: Ana=0t, Marco=0t, Sofia=0t, James=0t, Yuki=0t. Lake now at 182.0t. At dock: Ana, Marco, Sofia, James, Yuki. Out fishing: nobody.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:46:43.713181"
+  },
+  {
+    "round": 3,
+    "type": "reflection",
+    "content": "I want to check in with Yuki about the deeper fish and see if he has any new observations.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:50:49.932245"
   },
   {
     "round": 3,
     "type": "observed",
-    "content": "Harvests this round: Ana=12t, Marco=10t, Sofia=0t, James=0t, Yuki=6t. Lake now at 138.1t. At dock: Sofia, James. Out fishing: Ana, Marco, Yuki.",
+    "content": "Yuki left for the water before the conversation.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:09:34.330412"
+    "timestamp": "2026-04-08T16:50:49.965095"
+  },
+  {
+    "round": 3,
+    "type": "heard_group",
+    "content": "Ana said to everyone at the dock: \"We'll stick to the nine\u2011per\u2011boat limit.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T16:51:11.247086"
+  },
+  {
+    "round": 3,
+    "type": "heard_group",
+    "content": "Marco said to everyone at the dock: \"Alright, nine per boat. Let's keep an eye on the deeper fish too.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T16:51:34.779367"
+  },
+  {
+    "round": 3,
+    "type": "heard_group",
+    "content": "Sofia said to everyone at the dock: \"Nine per boat for me.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:51:56.313189"
+  },
+  {
+    "round": 3,
+    "type": "self_said",
+    "content": "You said to everyone at the dock: \"I'll keep to nine and watch the deeper fish.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:52:21.027838"
+  },
+  {
+    "round": 3,
+    "type": "heard_group",
+    "content": "Marco said to everyone at the dock: \"Did anyone spot any fish near the shore today? I\u2019m thinking of staying close to the rocks.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:52:55.823737"
+  },
+  {
+    "round": 3,
+    "type": "heard_group",
+    "content": "Sofia said to everyone at the dock: \"I haven't spotted any near the shore, but I'll keep an eye on the rocks.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:53:13.352469"
+  },
+  {
+    "round": 3,
+    "type": "self_said",
+    "content": "You said to everyone at the dock: \"Yuki, did you spot any deeper fish today?\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:53:55.752792"
+  },
+  {
+    "round": 3,
+    "type": "heard_group",
+    "content": "Ana said to everyone at the dock: \"I haven't seen any near shore, and I haven't spotted any deeper fish yet either.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:54:18.738915"
+  },
+  {
+    "round": 3,
+    "type": "unresolved_intent",
+    "content": "Wanted to speak to Yuki directly but they were not at the dock.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:55:32.862976"
+  },
+  {
+    "round": 3,
+    "type": "observed",
+    "content": "Harvests this round: Ana=9t, Marco=9t, Sofia=10t, James=10t, Yuki=0t. Lake now at 154.1t. At dock: Yuki. Out fishing: Ana, Marco, Sofia, James.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T16:55:32.873072"
   },
   {
     "round": 4,
     "type": "reflection",
-    "content": "I\u2019ll cut back to four tons today to reduce cumulative pressure on the lake, and I\u2019ll stay out tomorrow to observe fish response and see if Ana or Marco change plans.",
+    "content": "I will head out tomorrow. I\u2019ll keep the limit, stay alert for any new movements, and go with Yuki if he\u2019s still on the water. If he\u2019s back at the dock, I\u2019ll take the boat alone, still staying within the limit and keeping an eye on the deeper areas.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:16:20.795769"
+    "timestamp": "2026-04-08T17:00:16.308581"
   },
   {
     "round": 4,
     "type": "observed",
-    "content": "While you were out fishing, Sofia, Yuki had a conversation at the dock \u2014 you did not hear it.",
+    "content": "You headed straight out to fish and missed the dock conversation.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:20:31.998312"
+    "timestamp": "2026-04-08T17:01:17.998976"
   },
   {
     "round": 4,
     "type": "observed",
-    "content": "Harvests this round: Ana=0t, Marco=0t, Sofia=10t, James=4t, Yuki=8t. Lake now at 124.2t. At dock: Ana, Marco. Out fishing: Sofia, James, Yuki.",
+    "content": "Harvests this round: Ana=0t, Marco=0t, Sofia=0t, James=0t, Yuki=9t. Lake now at 155.3t. At dock: Ana, Marco, Sofia, James. Out fishing: Yuki.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:20:32.030927"
+    "timestamp": "2026-04-08T17:01:23.862837"
   },
   {
     "round": 5,
+    "type": "observed",
+    "content": "Yuki left for the water before the conversation.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:05:50.444764"
+  },
+  {
+    "round": 5,
+    "type": "heard_group",
+    "content": "Marco said to everyone at the dock: \"I\u2019ll stay close to the rocks again, looking for deeper fish. Do we know if there\u2019s a new rule tomorrow?\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:06:34.251670"
+  },
+  {
+    "round": 5,
+    "type": "heard_group",
+    "content": "Sofia said to everyone at the dock: \"Is the nine\u2011per\u2011boat limit still in effect tomorrow?\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:06:56.090997"
+  },
+  {
+    "round": 5,
+    "type": "self_said",
+    "content": "You said to everyone at the dock: \"Nine per boat still; let\u2019s keep an eye on the deeper fish.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:07:11.622126"
+  },
+  {
+    "round": 5,
+    "type": "heard_group",
+    "content": "Marco said to everyone at the dock: \"I haven't heard any change, so I think the nine\u2011per\u2011boat limit stays.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T17:07:35.769981"
+  },
+  {
+    "round": 5,
+    "type": "heard_group",
+    "content": "Sofia said to everyone at the dock: \"I\u2019ll pair with Yuki tomorrow.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:08:04.107155"
+  },
+  {
+    "round": 5,
+    "type": "self_said",
+    "content": "You said to everyone at the dock: \"I\u2019ll head out with Yuki tomorrow if he\u2019s still out.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:09:09.080729"
+  },
+  {
+    "round": 5,
+    "type": "observed",
+    "content": "Harvests this round: Ana=9t, Marco=9t, Sofia=10t, James=10t, Yuki=0t. Lake now at 125.5t. At dock: Yuki. Out fishing: Ana, Marco, Sofia, James.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:09:09.117581"
+  },
+  {
+    "round": 6,
+    "type": "observed",
+    "content": "You headed straight out to fish and missed the dock conversation.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:14:35.087546"
+  },
+  {
+    "round": 6,
+    "type": "observed",
+    "content": "Harvests this round: Ana=9t, Marco=0t, Sofia=0t, James=0t, Yuki=8t. Lake now at 116.1t. At dock: Marco, Sofia, James. Out fishing: Ana, Yuki.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:14:46.442314"
+  },
+  {
+    "round": 7,
+    "type": "unresolved_intent",
+    "content": "Wanted to say to Marco: \"I want to hear if he\u2019s noticed any shift in the deeper fish. I\u2019ll ask him about any new patterns or anything that might help us adjust.\" \u2014 but was out fishing, not at the dock.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:20:51.432095"
+  },
+  {
+    "round": 7,
+    "type": "observed",
+    "content": "Harvests this round: Ana=0t, Marco=9t, Sofia=9t, James=4t, Yuki=6t. Lake now at 94.3t. At dock: Ana. Out fishing: Marco, Sofia, James, Yuki.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:20:51.471950"
+  },
+  {
+    "round": 8,
+    "type": "heard_group",
+    "content": "Ana said to everyone at the dock: \"James, have you seen any deeper fish or heard the nine\u2011ton limit changed? Marco, would you want to pair up tomorrow?\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T17:25:34.397560"
+  },
+  {
+    "round": 8,
+    "type": "heard_group",
+    "content": "Marco said to everyone at the dock: \"I've seen the fish moving deeper, no new rule yet. Let's pair up tomorrow.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T17:25:56.678413"
+  },
+  {
+    "round": 8,
+    "type": "self_said",
+    "content": "You said to Yuki: \"Yuki, when you're out let me know what you're seeing in the deeper zones.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:26:19.155394"
+  },
+  {
+    "round": 8,
+    "type": "heard_group",
+    "content": "Yuki said to everyone at the dock: \"Sure, let\u2019s pair tomorrow and I\u2019ll let you know what I see in the deeper zones.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:26:43.925175"
+  },
+  {
+    "round": 8,
+    "type": "heard_direct",
+    "content": "Ana said to you directly: \"James, are you planning to pair up tomorrow too?\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:27:04.705054"
+  },
+  {
+    "round": 8,
+    "type": "self_said",
+    "content": "You said to everyone at the dock: \"I'm pairing with Yuki tomorrow. Let me know if you want to join.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:27:50.731547"
+  },
+  {
+    "round": 8,
+    "type": "heard_group",
+    "content": "Yuki said to everyone at the dock: \"I'm pairing with James tomorrow.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:28:14.041748"
+  },
+  {
+    "round": 8,
+    "type": "heard_group",
+    "content": "Ana said to everyone at the dock: \"I'll pair with Marco tomorrow, thanks.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:28:42.711358"
+  },
+  {
+    "round": 8,
+    "type": "heard_group",
+    "content": "Marco said to Ana (you overheard): \"Ana, any idea how deep they\u2019re staying?\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:29:13.256075"
+  },
+  {
+    "round": 8,
+    "type": "observed",
+    "content": "Harvests this round: Ana=9t, Marco=9t, Sofia=7t, James=4t, Yuki=8t. Lake now at 61.3t. At dock: nobody. Out fishing: Ana, Marco, Sofia, James, Yuki.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:29:35.437170"
+  },
+  {
+    "round": 9,
     "type": "reflection",
-    "content": "I\u2019ve been keeping the lake on a tight budget after the last round\u2019s 22\u2011ton haul, and the stock is already down to 124.2 tons. Four tons is a safe level that keeps my income steady without adding extra pressure when Sofia and Yuki are docked and likely to catch.",
+    "content": "I still want to discuss what he\u2019s seeing, but I can do that from the boat. The lake is in a critical state, so I\u2019m careful not to take more than the nine\u2011ton limit, but I also need to catch some fish to keep my share steady.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:28:33.040938"
+    "timestamp": "2026-04-08T17:35:05.882036"
   },
   {
-    "round": 5,
+    "round": 9,
+    "type": "observed",
+    "content": "You headed straight out to fish and missed the dock conversation.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:35:57.587796"
+  },
+  {
+    "round": 9,
+    "type": "observed",
+    "content": "Harvests this round: Ana=0t, Marco=0t, Sofia=4t, James=0t, Yuki=0t. Lake now at 61.3t. At dock: Ana, Marco, James, Yuki. Out fishing: Sofia.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:38:15.735349"
+  },
+  {
+    "round": 10,
+    "type": "reflection",
+    "content": "I don\u2019t have anything to say to anyone at the dock.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:42:56.648778"
+  },
+  {
+    "round": 10,
+    "type": "observed",
+    "content": "Ana wanted to speak to you at the dock but you were not there.",
+    "salience": "high",
+    "timestamp": "2026-04-08T17:46:59.049914"
+  },
+  {
+    "round": 10,
+    "type": "observed",
+    "content": "While you were out fishing, Marco, Ana, Yuki had a conversation at the dock \u2014 you did not hear it.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:47:27.268783"
+  },
+  {
+    "round": 10,
+    "type": "observed",
+    "content": "Harvests this round: Ana=9t, Marco=0t, Sofia=0t, James=9t, Yuki=4t. Lake now at 42.1t. At dock: Marco, Sofia. Out fishing: Ana, James, Yuki.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:47:27.277914"
+  },
+  {
+    "round": 11,
+    "type": "reflection",
+    "content": "I want to keep my share steady, so I\u2019m not going to risk going higher than nine. The lake is still critical, so I\u2019ll keep my take capped at nine tons and stay with the plan I\u2019ve been following for the last twenty years.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:52:01.993314"
+  },
+  {
+    "round": 11,
+    "type": "observed",
+    "content": "Ana, Marco, Yuki left for the water before the conversation.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:52:15.345948"
+  },
+  {
+    "round": 11,
+    "type": "heard_direct",
+    "content": "Sofia said to you directly: \"James, the lake is at 31.1t; maybe we should cut our catch this round.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:52:44.111324"
+  },
+  {
+    "round": 11,
+    "type": "self_said",
+    "content": "You said to everyone at the dock: \"I\u2019ll keep the nine\u2011ton limit and stay alert for deeper fish.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:53:27.333970"
+  },
+  {
+    "round": 11,
+    "type": "heard_group",
+    "content": "Sofia said to everyone at the dock: \"I think we should cut our catch to six this round to keep the lake healthy.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T17:54:00.517427"
+  },
+  {
+    "round": 11,
+    "type": "heard_group",
+    "content": "Sofia said to everyone at the dock: \"Are we all on board with cutting to six?\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T17:54:27.146810"
+  },
+  {
+    "round": 11,
+    "type": "self_said",
+    "content": "You said to Sofia: \"Sofia, I\u2019ll keep the nine\u2011ton limit. Will you cut to six?\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:54:53.404967"
+  },
+  {
+    "round": 11,
+    "type": "observed",
+    "content": "Harvests this round: Ana=0t, Marco=0t, Sofia=4t, James=9t, Yuki=0t. Lake now at 31.1t. At dock: Ana, Marco, Yuki. Out fishing: Sofia, James.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T17:54:53.416544"
+  },
+  {
+    "round": 12,
     "type": "observed",
     "content": "Sofia left for the water before the conversation.",
     "salience": "normal",
-    "timestamp": "2026-04-07T22:28:52.453725"
+    "timestamp": "2026-04-08T18:00:31.285534"
   },
   {
-    "round": 5,
-    "type": "heard_group",
-    "content": "Ana said to everyone at the dock: \"James, Yuki, I\u2019m planning to head out at 6:30 tomorrow, need at least 10\u202ft to cover the kids\u2014are you both joining?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:29:37.792701"
-  },
-  {
-    "round": 5,
-    "type": "reflection",
-    "content": "James wants to know Yuki's plan for tomorrow.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:30:21.695658"
-  },
-  {
-    "round": 5,
-    "type": "self_said",
-    "content": "You said to Yuki: \"Yuki, how much are you planning to take tomorrow?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:30:21.697957"
-  },
-  {
-    "round": 5,
-    "type": "heard_direct",
-    "content": "Yuki said to you directly: \"James, are you heading out tomorrow?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:31:00.156327"
-  },
-  {
-    "round": 5,
-    "type": "heard_direct",
-    "content": "Ana said to you directly: \"If you\u2019re heading out tomorrow, let me know the plan so I can plan the rest.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:32:01.750867"
-  },
-  {
-    "round": 5,
-    "type": "reflection",
-    "content": "I need to get the cargo ready.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:32:48.097725"
-  },
-  {
-    "round": 5,
-    "type": "self_said",
-    "content": "You said to everyone at the dock: \"I'm heading out tomorrow, planning to take about four tons.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:32:48.099219"
-  },
-  {
-    "round": 5,
-    "type": "heard_group",
-    "content": "Yuki said to everyone at the dock: \"I'm planning to take about six tons tomorrow.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:33:33.846075"
-  },
-  {
-    "round": 5,
-    "type": "heard_group",
-    "content": "Ana said to everyone at the dock: \"Okay, see you tomorrow at 6:30.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:34:12.345705"
-  },
-  {
-    "round": 5,
-    "type": "heard_group",
-    "content": "Yuki said to everyone at the dock: \"I'll be there at 6:30.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:35:59.815911"
-  },
-  {
-    "round": 5,
-    "type": "observed",
-    "content": "Harvests this round: Ana=10t, Marco=8t, Sofia=0t, James=4t, Yuki=0t. Lake now at 109.4t. At dock: Sofia, Yuki. Out fishing: Ana, Marco, James.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:35:59.850250"
-  },
-  {
-    "round": 6,
-    "type": "reflection",
-    "content": "That\u2019s a big hit, and the lake has already been declining. I\u2019ve been cutting back to four tons whenever the stock dips. Given the current numbers and the fact that I\u2019m not catching this round, I\u2019m going to stay at the dock tomorrow and let the others take their share.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:43:24.181593"
-  },
-  {
-    "round": 6,
-    "type": "observed",
-    "content": "Ana left for the water before the conversation.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:44:51.564429"
-  },
-  {
-    "round": 6,
-    "type": "observed",
-    "content": "Marco came in from fishing and joined the dock.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:44:51.578056"
-  },
-  {
-    "round": 6,
-    "type": "heard_group",
-    "content": "Marco said to everyone at the dock: \"When are you all heading out?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:45:49.611793"
-  },
-  {
-    "round": 6,
-    "type": "reflection",
-    "content": "He wants to coordinate what items others will bring.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:46:15.708744"
-  },
-  {
-    "round": 6,
-    "type": "self_said",
-    "content": "You said to everyone at the dock: \"I'm staying at dock tomorrow, so let me know what you plan to take.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:46:15.710523"
-  },
-  {
-    "round": 6,
-    "type": "heard_group",
-    "content": "Yuki said to everyone at the dock: \"I'm heading out tomorrow, planning to take about eight tons.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:46:49.669760"
-  },
-  {
-    "round": 6,
-    "type": "heard_group",
-    "content": "Marco said to everyone at the dock: \"I'll head out tomorrow, aiming to catch around eight tons.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:47:18.001392"
-  },
-  {
-    "round": 6,
-    "type": "reflection",
-    "content": "I want to keep the distribution equal.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:47:52.486134"
-  },
-  {
-    "round": 6,
-    "type": "self_said",
-    "content": "You said to everyone at the dock: \"8 tons each is fine; let's keep it that way.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:47:52.487970"
-  },
-  {
-    "round": 6,
-    "type": "heard_group",
-    "content": "Yuki said to everyone at the dock: \"Any updates on the decline trend that we should consider?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:48:25.622555"
-  },
-  {
-    "round": 6,
-    "type": "heard_group",
-    "content": "Marco said to everyone at the dock: \"The lake's dropping about 1% a day, so we should head out tomorrow if we want to keep the haul.\"",
-    "salience": "high",
-    "timestamp": "2026-04-07T22:48:50.800110"
-  },
-  {
-    "round": 6,
-    "type": "reflection",
-    "content": "I need to know if the plan changes so I can adjust my schedule.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:49:29.754589"
-  },
-  {
-    "round": 6,
-    "type": "self_said",
-    "content": "You said to everyone at the dock: \"I'll stay at the dock tomorrow. If either of you changes your 8\u2011ton plan, let me know.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:49:29.757173"
-  },
-  {
-    "round": 6,
-    "type": "observed",
-    "content": "Harvests this round: Ana=0t, Marco=8t, Sofia=12t, James=0t, Yuki=0t. Lake now at 95.7t. At dock: Ana, James, Yuki. Out fishing: Marco, Sofia.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:49:52.221621"
-  },
-  {
-    "round": 7,
-    "type": "reflection",
-    "content": "I\u2019ve been cutting back to four tons when the lake is dropping, and I\u2019ve kept myself at the dock during the sharpest declines to let the others take the load. If I go out tomorrow, I\u2019d probably take only four tons at best, and I\u2019d still be adding to a lake that\u2019s already lower than it was a few rounds ago. It seems safer to stay at the dock again and let Marco, Sofia, and Yuki take their share, then decide next round whether to come back out.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:54:48.386686"
-  },
-  {
-    "round": 7,
-    "type": "observed",
-    "content": "Marco, Yuki left for the water before the conversation.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:54:48.435216"
-  },
-  {
-    "round": 7,
-    "type": "observed",
-    "content": "Ana, Sofia came in from fishing and joined the dock.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:54:48.442639"
-  },
-  {
-    "round": 7,
-    "type": "heard_group",
-    "content": "Ana said to everyone at the dock: \"Sofia, James, are you heading south tomorrow? We should coordinate if we can all go together.\"",
-    "salience": "high",
-    "timestamp": "2026-04-07T22:55:25.612626"
-  },
-  {
-    "round": 7,
-    "type": "heard_direct",
-    "content": "Sofia said to you directly: \"Yes, I'm heading south tomorrow. James, are you going the same way?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:55:57.770418"
-  },
-  {
-    "round": 7,
-    "type": "reflection",
-    "content": "I prefer to stay at the dock this round.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:56:29.916984"
-  },
-  {
-    "round": 7,
-    "type": "self_said",
-    "content": "You said to everyone at the dock: \"I'll stay at the dock this round.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:56:29.927828"
-  },
-  {
-    "round": 7,
-    "type": "heard_group",
-    "content": "Ana said to Sofia (you overheard): \"Sofia, can you come out with me today? I need a haul to cover the kids\u2019 school costs.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:57:04.695945"
-  },
-  {
-    "round": 7,
-    "type": "heard_group",
-    "content": "Sofia said to Ana (you overheard): \"Sure, Ana, I can help out today, but I still need to finish my quota before heading south tomorrow.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:57:41.140920"
-  },
-  {
-    "round": 7,
-    "type": "reflection",
-    "content": "I prefer to stay safe and be available to assist if anyone needs help.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:58:42.142436"
-  },
-  {
-    "round": 7,
-    "type": "self_said",
-    "content": "You said to everyone at the dock: \"I'll stay docked this round; let me know if you need anything.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T22:58:42.145540"
-  },
-  {
-    "round": 7,
-    "type": "heard_group",
-    "content": "Ana said to Sofia (you overheard): \"Sofia, how many tons can we aim for today if we both go out? We need to hit ten.\"",
-    "salience": "high",
-    "timestamp": "2026-04-07T22:59:13.945936"
-  },
-  {
-    "round": 7,
-    "type": "heard_group",
-    "content": "Sofia said to everyone at the dock: \"I need to finish my quota first, then we can see if I have any left to share.\"",
-    "salience": "high",
-    "timestamp": "2026-04-07T22:59:59.861839"
-  },
-  {
-    "round": 7,
-    "type": "observed",
-    "content": "Harvests this round: Ana=10t, Marco=0t, Sofia=12t, James=0t, Yuki=0t. Lake now at 78.9t. At dock: Marco, James, Yuki. Out fishing: Ana, Sofia.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T23:00:14.723158"
-  },
-  {
-    "round": 8,
-    "type": "reflection",
-    "content": "I\u2019ve been cutting back to four tons whenever the stock drops and staying at the dock when the decline is sharp, letting the others take the load. I\u2019ll stay at the dock again, monitor what Ana and Sofia do, and see if they adjust. If they continue to take large amounts, I\u2019ll consider staying docked longer.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T23:07:34.873858"
-  },
-  {
-    "round": 8,
-    "type": "observed",
-    "content": "Ana, Sofia left for the water before the conversation.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T23:08:10.715649"
-  },
-  {
-    "round": 8,
+    "round": 12,
     "type": "observed",
     "content": "Marco, Yuki came in from fishing and joined the dock.",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:08:10.731269"
+    "timestamp": "2026-04-08T18:00:31.294013"
   },
   {
-    "round": 8,
+    "round": 12,
     "type": "heard_group",
-    "content": "Marco said to Yuki (you overheard): \"Yuki, I\u2019m planning to fish tomorrow for about eight tons; let me know if you\u2019re heading south.\"",
+    "content": "Marco said to Yuki (you overheard): \"Ana, Yuki, I'm available to pair up tomorrow.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:08:48.632015"
+    "timestamp": "2026-04-08T18:01:06.375507"
   },
   {
-    "round": 8,
-    "type": "reflection",
-    "content": "James wants to know Yuki's travel plans.",
-    "salience": "normal",
-    "timestamp": "2026-04-07T23:09:17.587607"
-  },
-  {
-    "round": 8,
+    "round": 12,
     "type": "self_said",
-    "content": "You said to Yuki: \"Yuki, are you heading south tomorrow?\"",
+    "content": "You said to everyone at the dock: \"Thanks, Marco, Yuki, let's meet tomorrow.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:09:17.590553"
+    "timestamp": "2026-04-08T18:01:27.722432"
   },
   {
-    "round": 8,
+    "round": 12,
     "type": "heard_group",
-    "content": "Yuki said to everyone at the dock: \"Marco, I\u2019m planning for six tons tomorrow; James, will you be joining me or staying at the dock?\"",
+    "content": "Yuki said to everyone at the dock: \"Sure, I'll pair up tomorrow.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:10:06.681695"
+    "timestamp": "2026-04-08T18:01:54.307045"
   },
   {
-    "round": 8,
-    "type": "heard_group",
-    "content": "Marco said to everyone at the dock: \"Yuki, are you heading south tomorrow? James, I\u2019ll be out for eight tons\u2014will you join me?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-07T23:11:03.540563"
-  },
-  {
-    "round": 8,
+    "round": 12,
     "type": "self_said",
-    "content": "You said to everyone at the dock: \"I'm staying at the dock.\"",
+    "content": "You said to Yuki: \"Yuki, any new deeper fish?\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:11:43.909830"
+    "timestamp": "2026-04-08T18:02:27.512368"
   },
   {
-    "round": 8,
+    "round": 12,
     "type": "heard_group",
-    "content": "Yuki said to Marco (you overheard): \"Marco, the lake\u2019s dropping 1% a day\u2014should we change our plan for tomorrow?\"",
+    "content": "Yuki said to everyone at the dock: \"No new deeper fish, but I\u2019ll keep an eye out tomorrow.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:12:20.397181"
+    "timestamp": "2026-04-08T18:02:46.789426"
   },
   {
-    "round": 8,
-    "type": "heard_group",
-    "content": "Marco said to everyone at the dock: \"I\u2019ll go for eight tons; if we all decide to lower the haul, I\u2019ll adjust.\"",
-    "salience": "high",
-    "timestamp": "2026-04-07T23:13:07.996296"
-  },
-  {
-    "round": 8,
-    "type": "heard_group",
-    "content": "Yuki said to Marco (you overheard): \"I'll take six tons tomorrow; Marco, if you want to stay at eight, let me know and I can adjust mine.\"",
+    "round": 12,
+    "type": "self_said",
+    "content": "You said to everyone at the dock: \"Got it, see you tomorrow.\"",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:14:54.756428"
+    "timestamp": "2026-04-08T18:03:22.750203"
   },
   {
-    "round": 8,
+    "round": 12,
     "type": "observed",
-    "content": "Harvests this round: Ana=0t, Marco=8t, Sofia=0t, James=0t, Yuki=6t. Lake now at 69.4t. At dock: Ana, Sofia, James. Out fishing: Marco, Yuki.",
+    "content": "Harvests this round: Ana=9t, Marco=4t, Sofia=0t, James=0t, Yuki=6t. Lake now at 12.9t. At dock: Sofia, James. Out fishing: Ana, Marco, Yuki.",
     "salience": "normal",
-    "timestamp": "2026-04-07T23:14:54.769100"
+    "timestamp": "2026-04-08T18:03:53.327598"
   },
   {
-    "round": 9,
-    "type": "reflection",
-    "content": "My own harvest has been 4\u202ft when the stock is that low, and that keeps the total removal within a range that has historically allowed the lake to recover over the following rounds. I prefer to wait and see how the stock behaves after their 14\u202ft haul before deciding whether to take a catch.",
-    "salience": "normal",
-    "timestamp": "2026-04-08T03:33:41.937539"
-  },
-  {
-    "round": 9,
+    "round": 13,
     "type": "observed",
     "content": "Marco, Yuki left for the water before the conversation.",
     "salience": "normal",
-    "timestamp": "2026-04-08T04:45:54.866379"
+    "timestamp": "2026-04-08T18:11:07.541025"
   },
   {
-    "round": 9,
+    "round": 13,
     "type": "observed",
     "content": "Sofia came in from fishing and joined the dock.",
     "salience": "normal",
-    "timestamp": "2026-04-08T04:45:54.880012"
+    "timestamp": "2026-04-08T18:11:07.542320"
   },
   {
-    "round": 9,
+    "round": 13,
+    "type": "heard_group",
+    "content": "Sofia said to everyone at the dock: \"We only have 7.4\u202ft left; we need to cut to a few tons each.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T18:11:43.461277"
+  },
+  {
+    "round": 13,
+    "type": "reflection",
+    "content": "I can adjust my take accordingly.",
+    "salience": "normal",
+    "timestamp": "2026-04-08T18:12:08.461926"
+  },
+  {
+    "round": 13,
+    "type": "self_said",
+    "content": "You said to Sofia: \"Sofia, what number are you thinking for the cut? I can adjust my take accordingly.\"",
+    "salience": "normal",
+    "timestamp": "2026-04-08T18:12:08.472802"
+  },
+  {
+    "round": 13,
     "type": "heard_direct",
-    "content": "Sofia said to you directly: \"James, Ana suggested we go out together tomorrow to stay near 10\u201312\u202ftons. Are you planning to join me?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T07:43:06.203435"
+    "content": "Sofia said to you directly: \"Two tons each.\"",
+    "salience": "high",
+    "timestamp": "2026-04-08T18:12:44.771646"
   },
   {
-    "round": 9,
-    "type": "reflection",
-    "content": "I want to stay at the dock.",
-    "salience": "normal",
-    "timestamp": "2026-04-08T08:16:48.840351"
-  },
-  {
-    "round": 9,
+    "round": 13,
     "type": "self_said",
-    "content": "You said to everyone at the dock: \"I\u2019m staying at the dock this round.\"",
+    "content": "You said to Sofia: \"Two tons, I'll take two.\"",
     "salience": "normal",
-    "timestamp": "2026-04-08T08:16:48.849445"
+    "timestamp": "2026-04-08T18:13:03.115128"
   },
   {
-    "round": 9,
-    "type": "heard_direct",
-    "content": "Sofia said to you directly: \"James, are you planning to go out tomorrow with Ana?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T09:34:26.234964"
-  },
-  {
-    "round": 9,
-    "type": "reflection",
-    "content": "I don't want to go.",
-    "salience": "normal",
-    "timestamp": "2026-04-08T10:55:24.336827"
-  },
-  {
-    "round": 9,
-    "type": "self_said",
-    "content": "You said to everyone at the dock: \"I\u2019m not going tomorrow.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T10:55:24.346061"
-  },
-  {
-    "round": 9,
-    "type": "reflection",
-    "content": "He hopes Sofia might reconsider her plans.",
-    "salience": "normal",
-    "timestamp": "2026-04-08T14:13:35.221285"
-  },
-  {
-    "round": 9,
-    "type": "self_said",
-    "content": "You said to Sofia: \"Sofia, if you change your mind about tomorrow, let me know.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T14:13:35.236529"
-  },
-  {
-    "round": 9,
+    "round": 13,
     "type": "observed",
-    "content": "Harvests this round: Ana=10t, Marco=0t, Sofia=10t, James=0t, Yuki=0t. Lake now at 52.9t. At dock: Marco, James, Yuki. Out fishing: Ana, Sofia.",
+    "content": "Harvests this round: Ana=0t, Marco=0t, Sofia=6t, James=0t, Yuki=0t. Lake now at 7.4t. At dock: Marco, James, Yuki. Out fishing: Ana, Sofia.",
     "salience": "normal",
-    "timestamp": "2026-04-08T14:13:35.390190"
+    "timestamp": "2026-04-08T18:13:28.447740"
   },
   {
-    "round": 10,
-    "type": "reflection",
-    "content": "I have no incentive to increase the harvest this round, and I can use the dock to monitor what Ana and Sofia do and see if they change their plans. Staying also gives me a chance to speak with Sofia about cutting her haul if she\u2019s willing to aim for a lower total, which would benefit the lake and keep our future income steadier.",
-    "salience": "normal",
-    "timestamp": "2026-04-08T15:37:41.001238"
-  },
-  {
-    "round": 10,
+    "round": 14,
     "type": "observed",
     "content": "Sofia left for the water before the conversation.",
     "salience": "normal",
-    "timestamp": "2026-04-08T15:37:41.037601"
+    "timestamp": "2026-04-08T18:19:49.617010"
   },
   {
-    "round": 10,
+    "round": 14,
     "type": "observed",
     "content": "Ana, Marco, Yuki came in from fishing and joined the dock.",
     "salience": "normal",
-    "timestamp": "2026-04-08T15:37:41.051625"
+    "timestamp": "2026-04-08T18:19:49.625595"
   },
   {
-    "round": 10,
+    "round": 14,
     "type": "heard_group",
-    "content": "Ana said to everyone at the dock: \"We need ten tons. Anyone want to go out with me?\"",
+    "content": "Ana said to Marco (you overheard): \"Marco, can we pair up tomorrow? It might help us get a better haul.\"",
     "salience": "high",
-    "timestamp": "2026-04-08T15:38:04.919101"
+    "timestamp": "2026-04-08T18:20:06.564845"
   },
   {
-    "round": 10,
+    "round": 14,
     "type": "heard_group",
-    "content": "Marco said to everyone at the dock: \"Ana, that\u2019s too much for the lake. Yuki, what are your plans?\"",
+    "content": "Marco said to everyone at the dock: \"Sure, let's pair up tomorrow.\"",
     "salience": "normal",
-    "timestamp": "2026-04-08T15:38:51.466343"
-  },
-  {
-    "round": 10,
-    "type": "reflection",
-    "content": "James wants to know Yuki's plans.",
-    "salience": "normal",
-    "timestamp": "2026-04-08T15:39:07.319958"
-  },
-  {
-    "round": 10,
-    "type": "self_said",
-    "content": "You said to Yuki: \"Yuki, what are your plans?\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T15:39:07.322666"
-  },
-  {
-    "round": 10,
-    "type": "heard_group",
-    "content": "Yuki said to everyone at the dock: \"I'll go out with Ana, but I only need six tons.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T15:39:34.554256"
-  },
-  {
-    "round": 10,
-    "type": "heard_group",
-    "content": "Ana said to Marco (you overheard): \"Yuki, that helps. Marco, can you join me to cover the remaining 4\u202ft?\"",
-    "salience": "high",
-    "timestamp": "2026-04-08T15:39:59.052150"
-  },
-  {
-    "round": 10,
-    "type": "heard_group",
-    "content": "Marco said to everyone at the dock: \"I\u2019ll be out tomorrow for about eight tons, not joining Ana\u2019s trip.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T15:40:23.307101"
-  },
-  {
-    "round": 10,
-    "type": "reflection",
-    "content": "He feels the lake is too much and prefers staying at the dock.",
-    "salience": "normal",
-    "timestamp": "2026-04-08T15:40:59.630874"
-  },
-  {
-    "round": 10,
-    "type": "self_said",
-    "content": "You said to Ana: \"Ana, that\u2019s too much for the lake. I\u2019ll stay at the dock.\"",
-    "salience": "normal",
-    "timestamp": "2026-04-08T15:40:59.632913"
+    "timestamp": "2026-04-08T18:20:21.090598"
   }
 ]

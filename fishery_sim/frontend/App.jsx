@@ -307,8 +307,8 @@ function HarvestChart({ lake, agents }) {
   const chartW = W - PADDING.left - PADDING.right;
   const chartH = H - PADDING.top - PADDING.bottom;
 
-  const history = lake?.history || [100];
-  const maxVal = lake?.max || 100;
+  const history = lake?.history || [200];
+  const maxVal = lake?.max || 200;
   const n = history.length;
 
   if (n < 2) return (
@@ -334,7 +334,7 @@ function HarvestChart({ lake, agents }) {
   const barW = n > 1 ? Math.max(2, chartW / (n - 1) / (agents.length + 1)) : 8;
 
   // Y-axis labels
-  const yTicks = [0, 25, 50, 75, 100];
+  const yTicks = [0, maxVal * 0.25, maxVal * 0.5, maxVal * 0.75, maxVal].map(v => Math.round(v));
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 160 }}>
@@ -749,7 +749,8 @@ function App() {
     await apiControl(action);
   }, []);
 
-  const lake = state?.lake || { current: 100, max: 100, history: [100], status: "healthy" };
+  const lakeMax = state?.lake?.max || 200;
+  const lake = state?.lake || { current: lakeMax, max: lakeMax, history: [lakeMax], status: "healthy" };
   const agents = state?.agents || [];
   const norms = state?.norm_tracker || [];
 

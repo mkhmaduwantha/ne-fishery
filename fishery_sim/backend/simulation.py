@@ -160,9 +160,11 @@ def build_round_graph(sim: "FisherySimulation"):
                     decisions[name] = decision
                     harvests_declared[name] = decision["harvest"]
                     sim.pending_intents[name] = decision.get("pending_intent")
-                    if decision.get("reflect"):
+                    reflect = decision.get("reflect", "").strip()
+                    # Only write reflections that are genuine first-person statements
+                    if reflect and reflect.lower().startswith("i "):
                         sim.memory.write(name, round_num, "reflection",
-                                         decision["reflect"], salience="normal")
+                                         reflect, salience="normal")
                 except Exception as e:
                     logger.error(f"  [{name}] LLM call failed: {e}")
                     raw_prompts[name] = ""
@@ -222,11 +224,6 @@ def build_round_graph(sim: "FisherySimulation"):
                 sim.memory.write(name, round_num, "unresolved_intent",
                                  intent_note, salience="normal")
                 sim.pending_intents[name] = intent_note
-            elif pending_intent:
-                sim.memory.write(name, round_num, "unresolved_intent",
-                                 f"Intended to say: {pending_intent}",
-                                 salience="normal")
-                sim.pending_intents[name] = pending_intent
 
         return {}
 
@@ -351,9 +348,10 @@ def build_round_graph(sim: "FisherySimulation"):
                 addressee = decision.get("addressee")
                 is_norm = decision.get("norm_signal", False)
 
-                if decision.get("reflect"):
+                reflect = decision.get("reflect", "").strip()
+                if reflect and reflect.lower().startswith("i "):
                     sim.memory.write(name, round_num, "reflection",
-                                     decision["reflect"], salience="normal")
+                                     reflect, salience="normal")
 
                 # ── GROUP ──────────────────────────────────────────────────────
                 if speech_type == "GROUP" and message:
@@ -382,7 +380,10 @@ def build_round_graph(sim: "FisherySimulation"):
 
                 # ── DIRECT ─────────────────────────────────────────────────────
                 elif speech_type == "DIRECT" and message and addressee:
-                    if addressee in active_participants:
+                    # Guard: addressee must be a real agent name
+                    if addressee not in sim.agent_names:
+                        logger.warning(f"      [{name}] invalid addressee {addressee!r} — treating as SILENT")
+                    elif addressee in active_participants:
                         transcript.append({"from": name, "to": addressee,
                                            "content": message, "turn": turn + 1})
                         turn_had_speech = True

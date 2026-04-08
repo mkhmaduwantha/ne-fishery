@@ -134,9 +134,9 @@ Last round's harvests:
 {harvest_block}
 {memory_text}{messages_text}{intent_text}
 {decision_block}
-
+{"" if round_num == 1 else """
 Before responding, consider: what did you actually observe this round, and does anything you see change what you plan to do?
-
+"""}
 Then write what is genuinely on your mind — your reasoning, your concerns, your decision. Not dialogue, not atmosphere. Just your actual thinking and what you choose to do."""
 
 
@@ -199,9 +199,9 @@ Given what you have just heard, what do you say next — if anything?
 
 You may speak to everyone, speak to one person directly, or say nothing.
 Keep it brief — one or two sentences at most. If you have nothing genuine to add, say nothing.
-
+{"" if round_num == 1 else """
 Before responding, consider: is there anything you actually want to say or find out, based on what you heard?
-
+"""}
 Then write only what you would genuinely say out loud — or nothing at all. Not atmosphere, not performance. Just what you would actually say."""
 
 
