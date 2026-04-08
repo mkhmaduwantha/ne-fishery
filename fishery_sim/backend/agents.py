@@ -135,7 +135,9 @@ Last round's harvests:
 {memory_text}{messages_text}{intent_text}
 {decision_block}
 
-Write your response as plain prose — no bullet points, no bold text, no headers, no lists. Just speak as a person would. Be direct and grounded — avoid storytelling, metaphors, or dramatisation."""
+Before responding, consider: what did you actually observe this round, and does anything you see change what you plan to do?
+
+Then write what is genuinely on your mind — your reasoning, your concerns, your decision. Not dialogue, not atmosphere. Just your actual thinking and what you choose to do."""
 
 
 # ── Dock conversation-turn prompt ─────────────────────────────────────────────
@@ -196,10 +198,11 @@ What has been said at the dock so far this round:
 Given what you have just heard, what do you say next — if anything?
 
 You may speak to everyone, speak to one person directly, or say nothing.
-Keep it natural and brief — one or two sentences at most.
-If you have nothing to add right now, just say so.
+Keep it brief — one or two sentences at most. If you have nothing genuine to add, say nothing.
 
-Write your response as plain prose — no bullet points, no bold text, no lists. Be direct — avoid storytelling or dramatisation."""
+Before responding, consider: is there anything you actually want to say or find out, based on what you heard?
+
+Then write only what you would genuinely say out loud — or nothing at all. Not atmosphere, not performance. Just what you would actually say."""
 
 
 def call_agent_llm(prompt: str) -> str:
