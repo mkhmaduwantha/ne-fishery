@@ -124,6 +124,7 @@ def build_agent_prompt(agent_config: dict, world_state: dict,
 
 Round {round_num}.
 Lake: {lake['current']} tons remaining (was {lake['previous']} last round). Condition: {lake['status']}.
+The lake recovers a little on its own each round — fish repopulate in proportion to how much stock is left. The healthier the lake, the more it grows back. If the stock is completely exhausted, there is nothing left to recover.
 
 {dock_line}
 {fishing_line}
@@ -180,9 +181,12 @@ def build_conversation_prompt(agent_config: dict, round_num: int,
     ]
     memory_text = ""
     if valid_memories:
-        memory_text = "\nWhat you remember from previous rounds:\n"
+        memory_text = "\nWhat you remember:\n"
         for m in valid_memories:
-            memory_text += f"  Round {m['round']}: {m['content']}\n"
+            label = f"Round {m['round']}"
+            if m["round"] == round_num:
+                label += " (this round)"
+            memory_text += f"  {label}: {m['content']}\n"
 
     return f"""{disposition}
 
@@ -190,6 +194,7 @@ def build_conversation_prompt(agent_config: dict, round_num: int,
 
 Round {round_num} — dock conversation.
 Lake condition: {lake_status}.
+The lake recovers a little on its own each round — proportional to remaining stock. If fully depleted, there is no recovery.
 Others at the dock with you: {others_text}.
 {intent_text}{memory_text}
 What has been said at the dock so far this round:

@@ -187,11 +187,30 @@ def build_round_graph(sim: "FisherySimulation"):
 
     # ── Node 3: apply_world ───────────────────────────────────────────────────
     def apply_world(state: RoundState) -> dict:
-        """Apply declared harvests to the lake; record actual amounts."""
+        """Apply declared harvests to the lake; record actual amounts.
+        Also writes the harvest observation memory NOW so agents see it
+        during the conversation phase in the same round."""
+        round_num = state["round_num"]
+        dock_agents = state["dock_agents"]
+        fishing_agents = [n for n in sim.agent_names if n not in dock_agents]
+
         actual = sim.lake.apply_harvests(state["harvests_declared"])
         for name, amount in actual.items():
             sim.harvest_history[name].append(amount)
         logger.info(f"  Harvests: {actual} | Lake after: {sim.lake.stock}t")
+
+        # Write harvest observation before conversation starts
+        harvest_summary = ", ".join([f"{n}={actual[n]}t" for n in sim.agent_names])
+        dock_summary    = ", ".join(dock_agents)    if dock_agents    else "nobody"
+        fishing_summary = ", ".join(fishing_agents) if fishing_agents else "nobody"
+        for agent_cfg in AGENTS:
+            sim.memory.write(
+                agent_cfg["name"], round_num, "observed",
+                f"Harvests this round: {harvest_summary}. "
+                f"Lake now at {sim.lake.stock}t. "
+                f"At dock: {dock_summary}. Out fishing: {fishing_summary}.",
+            )
+
         return {"actual_harvests": actual}
 
     # ── Node 4: handle_fishing_intents ───────────────────────────────────────
@@ -452,23 +471,8 @@ def build_round_graph(sim: "FisherySimulation"):
     def write_memories(state: RoundState) -> dict:
         """Write per-agent observation memories for this round."""
         round_num = state["round_num"]
-        actual = state["actual_harvests"]
-        dock_agents = state["dock_agents"]
-        fishing_agents = [n for n in sim.agent_names if n not in dock_agents]
-
-        harvest_summary = ", ".join(
-            [f"{n}={actual[n]}t" for n in sim.agent_names]
-        )
-        dock_summary = (", ".join(dock_agents)) if dock_agents else "nobody"
-        fishing_summary = (", ".join(fishing_agents)) if fishing_agents else "nobody"
-
-        for agent_cfg in AGENTS:
-            sim.memory.write(
-                agent_cfg["name"], round_num, "observed",
-                f"Harvests this round: {harvest_summary}. "
-                f"Lake now at {sim.lake.stock}t. "
-                f"At dock: {dock_summary}. Out fishing: {fishing_summary}.",
-            )
+        # Harvest observation already written in apply_world so agents see it
+        # during the conversation phase. Nothing to do here.
         return {}
 
     # ── Node 7: check_reflections ─────────────────────────────────────────────
